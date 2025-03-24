@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Devoluciones</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        // URL del script de Google Apps Script (reemplazar con tu URL)
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbweS-EM3WwYPfCBFeD2ul4e8hMfFybcJcwYo2BV11Q9czI2rOIhpeFbBtQlKKQ8MN7efg/exec";
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Formulario de Devoluciones</h1>
+            <p>Complete los datos y adjunte las imágenes correspondientes</p>
+        </header>
+        
+        <main>
+            <div class="success-message" id="successMessage"></div>
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="form-container">
+                <h2 class="form-title">Datos de Devolución</h2>
+                
+                <form id="devolucionesForm" data-form-type="Devoluciones">
+                    <div class="form-group">
+                        <label for="numeroDocumento">Número de Documento:</label>
+                        <input type="text" id="numeroDocumento" name="numeroDocumento" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" name="fecha" class="form-control" required>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label>Fotografías:</label>
+                        <div id="imagePreviewContainer" class="image-preview-container dropzone">
+                            <p>Arrastre y suelte las imágenes aquí o haga clic en el botón para seleccionarlas</p>
+                        </div>
+                        <button type="button" id="uploadButton" class="btn btn-secondary">Seleccionar Imágenes</button>
+                        <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <a href="index.html" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        
+        <!-- Overlay de carga -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+        </div>
+        
+        <footer>
+            <p><a href="index.html">← Volver al inicio</a></p>
+        </footer>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/googlescript.js"></script>
+</body>
+</html>

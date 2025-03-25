@@ -51,16 +51,12 @@ function setupImageUpload() {
 
 // Procesar los archivos de imagen
 function handleImageFiles(files) {
-    if (!files || files.length === 0) return;
-    
-    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
-    
-    // Comprobar si se excede el número máximo de imágenes
+    // Verificar límite de imágenes
     if (uploadedImages.length + files.length > maxImages) {
         showMessage(`Solo se permiten ${maxImages} imágenes como máximo.`, 'error');
         return;
     }
-    
+
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         
@@ -70,24 +66,29 @@ function handleImageFiles(files) {
             continue;
         }
         
-        // Comprobar el tamaño
+        // Comprobar tamaño
         if (file.size > maxImageSize) {
-            showMessage('Las imágenes no deben superar los 5MB de tamaño.', 'error');
+            showMessage('Las imágenes no deben superar los 5MB.', 'error');
             continue;
         }
-        
-        // Añadir a la lista de imágenes
-        uploadedImages.push(file);
         
         // Crear vista previa
         const reader = new FileReader();
         reader.onload = function(e) {
+            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+            
+            // Contenedor para la miniatura
             const previewItem = document.createElement('div');
             previewItem.className = 'image-preview-item';
             
+            // Imagen miniatura
             const img = document.createElement('img');
             img.src = e.target.result;
+            img.style.maxWidth = '150px';  // Tamaño fijo de miniatura
+            img.style.maxHeight = '150px';
+            img.style.objectFit = 'cover';  // Recortar manteniendo proporción
             
+            // Botón de eliminación
             const removeBtn = document.createElement('button');
             removeBtn.className = 'remove-image-btn';
             removeBtn.innerHTML = '×';
@@ -99,11 +100,16 @@ function handleImageFiles(files) {
                 }
             });
             
+            // Agregar imagen y botón al contenedor
             previewItem.appendChild(img);
             previewItem.appendChild(removeBtn);
             imagePreviewContainer.appendChild(previewItem);
         };
         
+        // Añadir imagen a la lista de imágenes subidas
+        uploadedImages.push(file);
+        
+        // Leer archivo para vista previa
         reader.readAsDataURL(file);
     }
 }

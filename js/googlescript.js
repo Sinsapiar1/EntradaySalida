@@ -247,7 +247,7 @@ function submitFormToGoogleScript(formData) {
     formData.forEach((value, key) => {
         formDataObject[key] = value;
     });
-    
+    console.log('Datos del formulario:', formDataObject)
     console.log('Enviando datos al servidor:', formDataObject);
     console.log('Número de imágenes siendo enviadas:', 
                 Object.keys(formDataObject).filter(k => k.startsWith('imagen_')).length);
